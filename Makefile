@@ -1,12 +1,13 @@
-CFLAGS = -Wno-implicit-function-declaration
-
+CFLAGS = -ansi -Wall -pedantic
+CC = gcc
 letters.o: letters.c
-	@echo "hi"
-	gcc $(CFLAGS) -c letters.c
-	chmod +x letters.o
+	$(CC) $(CFLAGS) -c letters.c
+
+xy_bits.o: xy_bits.c
+	$(CC) $(CFLAGS) -c xy_bits.c
 
 
 
 clean:
 	@echo "Removing EVERYTHING"
-	rm -f letters.o letters
+	rm -f letters.o letters xy_bits xy_bits.o

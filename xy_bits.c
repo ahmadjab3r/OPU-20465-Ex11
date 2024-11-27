@@ -3,60 +3,87 @@
 #define THIRTEEN 13
 #define SEVEN 7
 
-#define ONE 1 // as in 0..01 in binary
-#define ZERO 0 // as in 0..00 in binary
-unsigned long move_bit (unsigned long binary_rep, int bit_to_turn_on)
+#define ONE 1 /*as in 0..01 in binary*/
+#define ZERO 0 /*as in 0..00 in binary*/
+#define TRUE 1
+#define FALSE 0
+#define MAX_WORD_SIZE 1024
+/**
+ * shifts 000000...1 by bit_to_turn_on-1 times
+ * @param bit_to_turn_on
+ * @return
+ */
+unsigned long move_bit (int bit_to_turn_on)
 {
-  //It won't work with bit_to_turn_on 0, but it's not even needed
-  while (bit_to_turn_on != 1)
-    {
-      binary_rep = binary_rep << 1;
-      bit_to_turn_on -= 1;
-    }
-  return binary_rep;
-
+  return ONE<<(bit_to_turn_on-1);
 }
+/**
+ * Creates the number 2^bit_to_turn_on, then turns it with OR in x
+ * @param x the number to turn a specific bit on
+ * @param bit_to_turn_on the bit to turn on
+ * @return the number with the bit turned on
+ */
 unsigned long turn_specific_bit (unsigned long x, int bit_to_turn_on)
 {
-  unsigned long binary_rep = move_bit (ONE, bit_to_turn_on);
+  unsigned long binary_rep = move_bit ( bit_to_turn_on);
   return x | binary_rep;
 }
-unsigned long check_specific_bit_on (unsigned long y, int bit_to_turn_on)
+/**
+ * Creates the number 2^bit_to_turn_on, then checks it with the original
+ * number to see if it's turned on or not.
+ * @param x the number to check if the specific bit is on
+ * @param bit_to_turn_on the bit to check
+ * @return true if it's on, false otherwise
+ */
+int check_specific_bit_on (unsigned long y, int bit_to_turn_on)
 {
-  unsigned long binary_rep = move_bit (ONE, bit_to_turn_on);
-  return (y & binary_rep) > 0 ? true : false;
+  unsigned long binary_rep = move_bit ( bit_to_turn_on);
+  return (y & binary_rep) > 0 ? TRUE : FALSE;
 }
 
+/**
+ * Prints a number in Binary format.
+ * @param x the number to print in binary
+ */
 void print_value_in_binary (unsigned long x)
 {
-  //in order to print in a correct manner and not reverse,
-  //will turn on the significant bit in UL, which will look like 1000000000...0
-  unsigned long start = (unsigned) -1 - (unsigned) -1 / 2; //TODO unsigned!!
+  /*in order to print in a correct manner and not reverse,
+  will turn on the significant bit in UL, which will look like 1000000000...0*/
+  /* TODO unsigned and not unsigned long?*/
+  unsigned long start = (unsigned ) -1 - (unsigned) -1 / 2;
   while (start > 0)
     {
-      if (x & start)
-        {
-          printf ("%lu", (unsigned long) ONE);
-        }
-      else
-        {
-          printf ("%lu", (unsigned long) ZERO);
-        }
+      if (x & start) printf ("%lu", (unsigned long) ONE);
+      else printf ("%lu", (unsigned long) ZERO);
+
       start = start >> 1;
     }
 }
 
-int main ()
+int main (void)
 {
+  unsigned long x,y,x_result;
+  int result;
+  char buff[MAX_WORD_SIZE];
+  printf("Please enter the value of x and y using a comma: \n\t Example: 10,"
+         "25: ");
+  fgets(buff,MAX_WORD_SIZE,stdin);
+  /*With the assumption that we are getting correct values (from the EX Notes)*/
+  if (sscanf (buff, "%lu,%lu", &x,&y) !=2){
+    printf("Didn't provide both x and y");
+    return -1;
+  }
+  print_value_in_binary (x);
+  print_value_in_binary (y);
 
-  print_value_in_binary (687417593);
-  unsigned long x_result = turn_specific_bit (687417593, THIRTEEN);
-  bool result = check_specific_bit_on (3275277176, SEVEN);
+  x_result = turn_specific_bit (x, THIRTEEN);
+  /*3275277176*/
+  result = check_specific_bit_on (y, SEVEN);
   printf ("\nx's 13th bit was turned on and it became: ");
   print_value_in_binary (x_result);
   printf ("\ny's 6th bit is ON? %s", result ? "Yes" : "NO");
 
 }
 
-//100111110001110010011111000101
-//00101000111110010011100011111001
+/*100111110001110010011111000101 */
+/*00101000111110010011100011111001*/
