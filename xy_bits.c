@@ -49,8 +49,7 @@ void print_value_in_binary (unsigned long x)
 {
   /*in order to print in a correct manner and not reverse,
   will turn on the significant bit in UL, which will look like 1000000000...0*/
-  /* TODO unsigned and not unsigned long?*/
-  unsigned long start = (unsigned ) -1 - (unsigned) -1 / 2;
+  unsigned long start = (unsigned long ) -1 - (unsigned long) -1 / 2;
   while (start > 0)
     {
       if (x & start) printf ("%lu", (unsigned long) ONE);
@@ -65,7 +64,7 @@ int main (void)
   unsigned long x,y,x_result;
   int result;
   char buff[MAX_WORD_SIZE];
-  printf("Please enter the value of x and y using a comma: \n\t Example: 10,"
+  printf("Please enter the value of x and y using a comma: \nExample: 10,"
          "25: ");
   fgets(buff,MAX_WORD_SIZE,stdin);
   /*With the assumption that we are getting correct values (from the EX Notes)*/
@@ -73,17 +72,11 @@ int main (void)
     printf("Didn't provide both x and y");
     return -1;
   }
-  print_value_in_binary (x);
-  print_value_in_binary (y);
-
   x_result = turn_specific_bit (x, THIRTEEN);
   /*3275277176*/
   result = check_specific_bit_on (y, SEVEN);
   printf ("\nx's 13th bit was turned on and it became: ");
   print_value_in_binary (x_result);
-  printf ("\ny's 6th bit is ON? %s", result ? "Yes" : "NO");
-
+  printf ("\ny's 7th bit is ON? %s", result ? "Yes" : "NO\n");
+  return 0;
 }
-
-/*100111110001110010011111000101 */
-/*00101000111110010011100011111001*/

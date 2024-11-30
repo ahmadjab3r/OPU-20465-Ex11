@@ -1,0 +1,13 @@
+Hello,
+This is a test for "Exercise 11 in OOP", testing the functionality of
+the exercise. the letter in the start of each line is supposed to be
+a capital letter, AND and letter afterwards that is also CAPITAL, is
+supposed to become small LETTER.
+
+
+
+The program disregards all numbers, the submission date for the
+exercise is 01/12/2024, and... if you need any help contact me at
+gimme100@lol.com
+
+Have a good day ^^

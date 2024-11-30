@@ -77,6 +77,7 @@ int main (void)
 {
   int is_start = TRUE;
   int current;
+  printf("Please write down the sentence:\n");
   while ((current = getchar ()) != EOF)
     {
       /*CASE 1: IS NUMBER, SKIP OVER IT*/

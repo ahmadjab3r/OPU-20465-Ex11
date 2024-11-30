@@ -9,5 +9,4 @@ xy_bits.o: xy_bits.c
 
 
 clean:
-	@echo "Removing EVERYTHING"
 	rm -f letters.o letters xy_bits xy_bits.o
